@@ -16,11 +16,10 @@ namespace MMTTechnicalTest.Controllers
         {
             _categoryRepository = categoryRepository;
         }
-
+        
         public IEnumerable<StandardCategory>GetAllCategories()
         {
-            return _categoryRepository.GetAllCategories();
-            
+            return _categoryRepository.GetAllCategories();           
         }
 
     }

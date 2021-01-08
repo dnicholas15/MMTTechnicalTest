@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -9,11 +10,16 @@ namespace MMTTechnicalTest.Models.Repositories
 {
     public class SqlStandardProductRepository : IProductRepository
     {
-        private string connectionString = ConfigurationManager.ConnectionStrings["MMTConnString"].ConnectionString;
+        private string _connectionString;
+
+        public SqlStandardProductRepository(IConfiguration configuration)
+        {
+            _connectionString = configuration.GetConnectionString("MMTConn");
+        }
 
         public void GetFeaturedProducts()
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 ///Call stored procedure for featured products
             };
@@ -22,7 +28,7 @@ namespace MMTTechnicalTest.Models.Repositories
 
         public void GetproductsByCategory(int Id)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 ///Call stored procedure to get products by cat id
             };

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MMTTechnicalTest.Models;
 using MMTTechnicalTest.Models.Repositories;
 using System;
@@ -10,7 +11,6 @@ namespace MMTTechnicalTest.Controllers
 {
     public class ProductController : Controller
     {
-
         private readonly IProductRepository _standardProductRepository;
         private readonly ICategoryRepository _standardCategoryRepository;
 
