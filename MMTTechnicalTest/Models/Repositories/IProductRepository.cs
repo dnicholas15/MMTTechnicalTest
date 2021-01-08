@@ -9,6 +9,6 @@ namespace MMTTechnicalTest.Models.Repositories
     {
         public void GetFeaturedProducts();
 
-        public void GetproductsByCategory(int Id);
+        public IEnumerable<StandardProduct> GetproductsByCategory(int Id);
     }
 }

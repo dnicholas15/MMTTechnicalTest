@@ -18,26 +18,34 @@ namespace MMTTechnicalTest.Models.Repositories
       
         public IEnumerable<StandardCategory> GetAllCategories()
         {
-            var categories = new List<StandardCategory>();
-            using (SqlConnection con = new SqlConnection(_connectionString))
+            try
             {
-                SqlCommand cmd = new SqlCommand("GetCategories", con);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                
-                using(SqlDataReader reader = cmd.ExecuteReader())
+                var categories = new List<StandardCategory>();
+                using (SqlConnection con = new SqlConnection(_connectionString))
                 {
-                    while (reader.Read())
-                    {
-                        categories.Add(new StandardCategory()
-                        {
-                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            Name = reader.GetString(reader.GetOrdinal("Name"))
-                        });
-                    }
-                }
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("GetCategories", con);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-            };
-            return categories;
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            categories.Add(new StandardCategory()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name"))
+                            });
+                        }
+                    }
+
+                };
+                return categories;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Unable to retrieve categories" + ex.Message);
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ namespace MMTTechnicalTest.Controllers
         
         public IEnumerable<StandardCategory>GetAllCategories()
         {
-            return _categoryRepository.GetAllCategories();           
+            return _categoryRepository.GetAllCategories();
         }
 
     }

@@ -27,9 +27,9 @@ namespace MMTTechnicalTest.Controllers
 
         }
 
-        public IEnumerable<StandardProduct>GetProductsByCategory()
+        public IEnumerable<StandardProduct>GetProductsByCategory(int categoryId)
         {
-            return new List<StandardProduct>();
+            return _standardProductRepository.GetproductsByCategory(categoryId);
 
         }
 
