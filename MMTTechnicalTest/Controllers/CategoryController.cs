@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MMTTechnicalTest.Models;
+using MMTTechnicalTest.Models.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,17 @@ namespace MMTTechnicalTest.Controllers
 {
     public class CategoryController : Controller
     {
+        private readonly ICategoryRepository _categoryRepository;
+
+        public CategoryController(ICategoryRepository categoryRepository)
+        {
+            _categoryRepository = categoryRepository;
+        }
 
         public IEnumerable<StandardCategory>GetAllCategories()
         {
-            return new List<StandardCategory>();
+            return _categoryRepository.GetAllCategories();
+            
         }
 
     }
