@@ -16,35 +16,31 @@ namespace MMTTechnicalTest.Models.Repositories
             _connectionString = configuration.GetConnectionString("MMTConn");
         }
       
-        public IEnumerable<StandardCategory> GetAllCategories()
+        public List<string> GetAllCategoryNames()
         {
             try
             {
-                var categories = new List<StandardCategory>();
+                var categoryNames = new List<string>();
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
                     con.Open();
-                    SqlCommand cmd = new SqlCommand("GetCategories", con);
+                    SqlCommand cmd = new SqlCommand("GetCategoryNames", con);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            categories.Add(new StandardCategory()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                Name = reader.GetString(reader.GetOrdinal("Name"))
-                            });
+                            categoryNames.Add(reader.GetString(reader.GetOrdinal("Name")));
                         }
                     }
 
                 };
-                return categories;
+                return categoryNames;
             }
             catch(Exception ex)
             {
-                throw new Exception("Unable to retrieve categories" + ex.Message);
+                throw new Exception("Unable to retrieve category names" + ex.Message);
             }
         }
     }

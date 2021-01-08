@@ -7,6 +7,6 @@ namespace MMTTechnicalTest.Models.Repositories
 {
     public interface ICategoryRepository
     {
-        public IEnumerable<StandardCategory> GetAllCategories();
+        public List<string> GetAllCategoryNames();
     }
 }
