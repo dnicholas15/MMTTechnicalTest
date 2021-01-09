@@ -5,14 +5,26 @@ using System.Data.SqlClient;
 
 namespace MMTTechnicalTest.Models.Repositories
 {
+    /// <summary>
+    /// The concrete implementation of the standard category repository using an SQL data store
+    /// </summary>
     public class SqlStandardCategoryRepository : ICategoryRepository
     {
         private string _connectionString;
+
+        /// <summary>
+        /// inject the config through the constructor and use it to get the DB connection string
+        /// </summary>
+        /// <param name="configuration">The application config</param>
         public SqlStandardCategoryRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("MMTConn");
         }
       
+        /// <summary>
+        /// The method for getting all categories from the database
+        /// </summary>
+        /// <returns>A List of <see cref="StandardCategory"/></returns>
         public IEnumerable<StandardCategory>GetAllCategories()
         {
             try

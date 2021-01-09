@@ -9,16 +9,26 @@ namespace MMTTechnicalTest.Controllers
     {
         private readonly ICategoryRepository _categoryRepository;
 
+        /// <summary>
+        /// constructore for the controller with injected category repository
+        /// </summary>
+        /// <param name="categoryRepository">The injected instance of the repository</param>
         public CategoryController(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }
 
+        /// <summary>
+        /// Api controller method for getting category names
+        /// </summary>
+        /// <returns>A list of category names</returns>
         [Route("Category/GetAllCategoryNames")]
         [HttpGet]
         public IActionResult GetAllCategoryNames()
         {
             var categories = _categoryRepository.GetAllCategories();
+
+            ///Return a 404 if there are no categories in the database
             if(!categories.Any())
             {
                 return NotFound("No categories were found");

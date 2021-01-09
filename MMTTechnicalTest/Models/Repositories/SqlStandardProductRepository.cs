@@ -5,15 +5,26 @@ using System.Data.SqlClient;
 
 namespace MMTTechnicalTest.Models.Repositories
 {
+    /// <summary>
+    /// The concrete implementation of the standard product repository using an SQL data store
+    /// </summary>
     public class SqlStandardProductRepository : IProductRepository
     {
         private string _connectionString;
 
+        /// <summary>
+        /// inject the config through the constructor and use it to get the DB connection string
+        /// </summary>
+        /// <param name="configuration">The application config</param>
         public SqlStandardProductRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("MMTConn");
         }
 
+        /// <summary>
+        /// The method for getting all featured products from the database
+        /// </summary>
+        /// <returns>A List of <see cref="StandardProduct"/></returns>
         public IEnumerable<StandardProduct> GetFeaturedProducts()
         {
             try
@@ -53,6 +64,11 @@ namespace MMTTechnicalTest.Models.Repositories
 
         }
 
+        /// <summary>
+        /// The method for getting all products from the database by a selected category id
+        /// </summary>
+        /// <param name="categoryId">The selected category id</param>
+        /// <returns>A list of <see cref="StandardProduct"/></returns>
         public IEnumerable<StandardProduct>GetproductsByCategory(int categoryId)
         {
                 try
