@@ -17,16 +17,23 @@ namespace MMTTechnicalTest.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        public List<string> GetAllCategoryNames()
+        [Route("Category/GetAllCategoryNames")]
+        [HttpGet]
+        public IActionResult GetAllCategoryNames()
         {
             var categories = _categoryRepository.GetAllCategories();
+            if(!categories.Any())
+            {
+                return NotFound("No categories were found");
+            }
+
             var listOfCategoryNames = new List<string>();
             foreach(var category in categories)
             {
                 listOfCategoryNames.Add(category.Name);
             }
 
-            return listOfCategoryNames;
+            return Ok(listOfCategoryNames);
         }
 
     }

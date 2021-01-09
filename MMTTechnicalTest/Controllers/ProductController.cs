@@ -2,7 +2,8 @@
 using MMTTechnicalTest.Models;
 using MMTTechnicalTest.Models.Repositories;
 using System.Collections.Generic;
-
+using System;
+using System.Linq;
 
 namespace MMTTechnicalTest.Controllers
 {
@@ -15,17 +16,29 @@ namespace MMTTechnicalTest.Controllers
             _standardProductRepository = standardProductRepository;
         }
 
-
-        public IEnumerable<StandardProduct>GetFeaturedProducts()
+        [Route("Product/GetFeaturedProducts")]
+        [HttpGet]
+        public IActionResult GetFeaturedProducts()
         {
-            return _standardProductRepository.GetFeaturedProducts();
+            var featuredProducts = _standardProductRepository.GetFeaturedProducts();
+            if (!featuredProducts.Any())
+            {
+                return NotFound("No featured products were found");
+            }
+            return Ok(_standardProductRepository.GetFeaturedProducts());
 
         }
 
-        public IEnumerable<StandardProduct>GetProductsByCategory(int categoryId)
+        [Route("Product/GetProductsByCategory/{categoryId?}")]
+        [HttpGet]
+        public IActionResult GetProductsByCategory(int categoryId)
         {
-            return _standardProductRepository.GetproductsByCategory(categoryId);
-
+            var products = _standardProductRepository.GetproductsByCategory(categoryId);
+            if (!products.Any())
+            {
+                return NotFound("No products were found in the selected category");
+            }
+            return Ok(products);
         }
       
     }
