@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MMTTechnicalTest.Models.Repositories;
+using System;
 using System.Linq;
 
 namespace MMTTechnicalTest.Controllers
@@ -23,6 +25,8 @@ namespace MMTTechnicalTest.Controllers
         /// <returns>A list of featured products</returns>
         [Route("Product/GetFeaturedProducts")]
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetFeaturedProducts()
         {
             var featuredProducts = _standardProductRepository.GetFeaturedProducts();
@@ -43,9 +47,11 @@ namespace MMTTechnicalTest.Controllers
         /// <returns></returns>
         [Route("Product/GetProductsByCategory/{categoryId?}")]
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetProductsByCategory(int categoryId)
         {
-            var products = _standardProductRepository.GetproductsByCategory(categoryId);
+            var products = _standardProductRepository.GetProductsByCategory(categoryId);
 
             ///Return a 404 if no products are found belonging to that category
             if (!products.Any())

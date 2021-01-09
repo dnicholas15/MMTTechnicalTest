@@ -69,7 +69,7 @@ namespace MMTTechnicalTest.Models.Repositories
         /// </summary>
         /// <param name="categoryId">The selected category id</param>
         /// <returns>A list of <see cref="StandardProduct"/></returns>
-        public IEnumerable<StandardProduct>GetproductsByCategory(int categoryId)
+        public IEnumerable<StandardProduct>GetProductsByCategory(int categoryId)
         {
                 try
                 {

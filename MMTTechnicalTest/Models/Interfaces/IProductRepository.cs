@@ -18,6 +18,6 @@ namespace MMTTechnicalTest.Models.Repositories
         /// </summary>
         /// <param name="Id">The selected category id</param>
         /// <returns>A List of Standard Product </returns>
-        public IEnumerable<StandardProduct> GetproductsByCategory(int Id);
+        public IEnumerable<StandardProduct> GetProductsByCategory(int Id);
     }
 }

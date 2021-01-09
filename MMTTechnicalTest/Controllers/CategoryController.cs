@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using MMTTechnicalTest.Models.Repositories;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace MMTTechnicalTest.Controllers
         /// <returns>A list of category names</returns>
         [Route("Category/GetAllCategoryNames")]
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAllCategoryNames()
         {
             var categories = _categoryRepository.GetAllCategories();
