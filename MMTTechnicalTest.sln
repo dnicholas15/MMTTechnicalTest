@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMTTechnicalTest", "MMTTechnicalTest\MMTTechnicalTest.csproj", "{F842D78D-A6F6-46F5-8057-121FAD3B82F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMTTechnicalTestTests", "MMTTechnicalTestTests\MMTTechnicalTestTests.csproj", "{D467842E-71E8-4892-A4D8-841F234017A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMTTechnicalTestTests", "MMTTechnicalTestTests\MMTTechnicalTestTests.csproj", "{D467842E-71E8-4892-A4D8-841F234017A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMTTechnicalTestConsoleApp", "MMTTechnicalTestConsoleApp\MMTTechnicalTestConsoleApp.csproj", "{0EA6A173-CB57-40D9-99DB-566AF080FC4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D467842E-71E8-4892-A4D8-841F234017A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D467842E-71E8-4892-A4D8-841F234017A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D467842E-71E8-4892-A4D8-841F234017A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EA6A173-CB57-40D9-99DB-566AF080FC4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EA6A173-CB57-40D9-99DB-566AF080FC4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EA6A173-CB57-40D9-99DB-566AF080FC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EA6A173-CB57-40D9-99DB-566AF080FC4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
