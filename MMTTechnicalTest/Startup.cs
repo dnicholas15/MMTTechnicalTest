@@ -20,6 +20,7 @@ namespace MMTTechnicalTest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors();
 
             services.AddScoped<ICategoryRepository, SqlStandardCategoryRepository>();
             services.AddScoped<IProductRepository, SqlStandardProductRepository>();
@@ -32,6 +33,12 @@ namespace MMTTechnicalTest
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
 
             app.UseHttpsRedirection();
 
