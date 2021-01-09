@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MMTTechnicalTest.Models.Interfaces
+﻿namespace MMTTechnicalTest.Models.Interfaces
 {
     public interface IProduct
     {

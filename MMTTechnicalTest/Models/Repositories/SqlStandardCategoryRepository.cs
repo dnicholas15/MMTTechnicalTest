@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MMTTechnicalTest.Models.Repositories
 {
@@ -42,9 +39,9 @@ namespace MMTTechnicalTest.Models.Repositories
                 };
                 return categories;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                throw new Exception("Unable to retrieve category names" + ex.Message);
+                throw new Exception("Unable to retrieve category names");
             }
         }
     }

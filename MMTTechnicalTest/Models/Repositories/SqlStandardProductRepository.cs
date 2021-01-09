@@ -45,7 +45,7 @@ namespace MMTTechnicalTest.Models.Repositories
                 };
                 return products;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new Exception("Unable to retrieve featured products");
             }
@@ -86,7 +86,7 @@ namespace MMTTechnicalTest.Models.Repositories
                     };
                     return products;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw new Exception("Unable to retrieve products");
                 }
