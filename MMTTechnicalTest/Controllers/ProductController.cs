@@ -1,29 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using MMTTechnicalTest.Models;
 using MMTTechnicalTest.Models.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace MMTTechnicalTest.Controllers
 {
     public class ProductController : Controller
     {
         private readonly IProductRepository _standardProductRepository;
-        private readonly ICategoryRepository _standardCategoryRepository;
 
-        public ProductController(ICategoryRepository standardCategoryRepository, IProductRepository standardProductRepository)
+        public ProductController(IProductRepository standardProductRepository)
         {
-            _standardCategoryRepository = standardCategoryRepository;
             _standardProductRepository = standardProductRepository;
         }
 
 
         public IEnumerable<StandardProduct>GetFeaturedProducts()
         {
-             return new List<StandardProduct>();
+            return _standardProductRepository.GetFeaturedProducts();
 
         }
 
@@ -32,7 +27,6 @@ namespace MMTTechnicalTest.Controllers
             return _standardProductRepository.GetproductsByCategory(categoryId);
 
         }
-
       
     }
 }

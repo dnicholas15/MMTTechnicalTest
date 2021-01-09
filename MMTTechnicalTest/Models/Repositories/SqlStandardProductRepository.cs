@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MMTTechnicalTest.Models.Repositories
 {
@@ -17,13 +14,43 @@ namespace MMTTechnicalTest.Models.Repositories
             _connectionString = configuration.GetConnectionString("MMTConn");
         }
 
-        public void GetFeaturedProducts()
+        public IEnumerable<StandardProduct> GetFeaturedProducts()
         {
-            using (SqlConnection con = new SqlConnection(_connectionString))
+            try
             {
-                ///Call stored procedure for featured products
-            };
-          
+                var products = new List<StandardProduct>();
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("GetFeaturedProducts", con);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            products.Add(new StandardProduct()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                Description = reader.GetString(reader.GetOrdinal("Description")),
+                                Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                                StockKeepingUnit = reader.GetInt32(reader.GetOrdinal("StockKeepingUnit")),
+                                CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                                CategoryName = reader.GetString(reader.GetOrdinal("CategoryName"))
+                            });                            
+                        }
+                    }
+
+                };
+                return products;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to retrieve featured products");
+            }
+
+
         }
 
         public IEnumerable<StandardProduct>GetproductsByCategory(int categoryId)
@@ -50,7 +77,8 @@ namespace MMTTechnicalTest.Models.Repositories
                                     Description = reader.GetString(reader.GetOrdinal("Description")),
                                     Price = reader.GetDecimal(reader.GetOrdinal("Price")),
                                     StockKeepingUnit = reader.GetInt32(reader.GetOrdinal("StockKeepingUnit")),
-                                    CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId"))
+                                    CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                                    CategoryName = reader.GetString(reader.GetOrdinal("CategoryName"))
                                 });
                             }
                         }

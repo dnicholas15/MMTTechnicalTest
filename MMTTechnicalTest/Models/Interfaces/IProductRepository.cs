@@ -7,7 +7,7 @@ namespace MMTTechnicalTest.Models.Repositories
 {
     public interface IProductRepository
     {
-        public void GetFeaturedProducts();
+        public IEnumerable<StandardProduct> GetFeaturedProducts();
 
         public IEnumerable<StandardProduct> GetproductsByCategory(int Id);
     }

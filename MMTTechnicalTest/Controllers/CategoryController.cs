@@ -19,7 +19,14 @@ namespace MMTTechnicalTest.Controllers
 
         public List<string> GetAllCategoryNames()
         {
-            return _categoryRepository.GetAllCategoryNames();
+            var categories = _categoryRepository.GetAllCategories();
+            var listOfCategoryNames = new List<string>();
+            foreach(var category in categories)
+            {
+                listOfCategoryNames.Add(category.Name);
+            }
+
+            return listOfCategoryNames;
         }
 
     }
