@@ -1,19 +1,23 @@
-﻿using System;
+﻿using MMTTechnicalTest.Models;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace MMTTechnicalTestConsoleApp
 {
     class Program
     {
-        private static string ApiUrl = "https://localhost:44352/";
-
-        static void Main(string[] args)
+        private static string ApiUrl = "https://localhost:44352";
+        static HttpClient client = new HttpClient();
+        static async Task Main(string[] args)
         {
-            Menu();
+           await Menu();
         }
 
-        public static void Menu()
+        public static async Task Menu()
         {
             Console.WriteLine("Welcome to the MMT Shop. Please select one of the following options and press enter:\r\n\r\n" +
                 "1) Show all featured products\r\n" +
@@ -28,14 +32,14 @@ namespace MMTTechnicalTestConsoleApp
             if (!correctChoice)
             {
                 Console.WriteLine("\r\nSorry, I didn't recognise that. You must choose a number to continue");
-                Menu();
+                await Menu();
             }
 
             switch (selection)
             {
                 case 1:
                     Console.Clear();
-                    ShowFeaturedProducts();
+                    await ShowFeaturedProducts();
                     break;
                 case 2:
                     Console.Clear();
@@ -47,14 +51,25 @@ namespace MMTTechnicalTestConsoleApp
                     break;
                 default:
                     Console.WriteLine("\r\nSorry, I did not recognise that choice. Please choose one of the available options");
-                    Menu();
+                    await Menu();
                     break;
             }
         }
 
-        public static void ShowFeaturedProducts()
+        public static async Task ShowFeaturedProducts()
         {
-
+            try
+            {
+                var response = await client.GetAsync(ApiUrl + "/Product/GetFeaturedProducts");
+                if(response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine(await response.Content.ReadAsStringAsync());
+                }
+            }
+            catch(HttpRequestException e)
+            {
+                Console.WriteLine("Message = {0}", e.Message);
+            }
             ///Get request to Endpoint
         }
 
