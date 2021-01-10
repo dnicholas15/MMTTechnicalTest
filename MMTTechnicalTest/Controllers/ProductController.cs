@@ -51,14 +51,21 @@ namespace MMTTechnicalTest.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetProductsByCategory(int categoryId)
         {
-            var products = _standardProductRepository.GetProductsByCategory(categoryId);
-
-            ///Return a 404 if no products are found belonging to that category
-            if (!products.Any())
+            try
             {
-                return NotFound("No products were found in the selected category");
+                var products = _standardProductRepository.GetProductsByCategory(categoryId);
+
+                ///Return a 404 if no products are found belonging to that category
+                if (!products.Any())
+                {
+                    return NotFound("No products were found in the selected category");
+                }
+                return Ok(products);
             }
-            return Ok(products);
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
       
     }
