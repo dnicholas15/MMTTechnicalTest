@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MMTTechnicalTest.Models.DTOs;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,15 @@ namespace MMTTechnicalTest.Models.Repositories
     public class SqlStandardProductRepository : IProductRepository
     {
         private string _connectionString;
-
+        ILogger<SqlStandardProductRepository> _logger;
         /// <summary>
         /// inject the config through the constructor and use it to get the DB connection string
         /// </summary>
         /// <param name="configuration">The application config</param>
-        public SqlStandardProductRepository(IConfiguration configuration)
+        public SqlStandardProductRepository(IConfiguration configuration, ILogger<SqlStandardProductRepository> logger)
         {
-            _connectionString = configuration.GetConnectionString("MMTConn");
+            _connectionString = configuration.GetConnectionString("MMTCon");
+            _logger = logger;
         }
 
         /// <summary>
@@ -55,8 +57,9 @@ namespace MMTTechnicalTest.Models.Repositories
                 };
                 return products;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw new Exception("Unable to retrieve featured products");
             }
 
@@ -98,8 +101,9 @@ namespace MMTTechnicalTest.Models.Repositories
                     };
                     return products;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _logger.LogError(ex.Message);
                     throw new Exception("Unable to retrieve products");
                 }
             

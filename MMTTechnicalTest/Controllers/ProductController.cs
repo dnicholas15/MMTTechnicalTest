@@ -29,14 +29,21 @@ namespace MMTTechnicalTest.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetFeaturedProducts()
         {
-            var featuredProducts = _standardProductRepository.GetFeaturedProducts();
-
-            ///Return a 404 if no featured products are found in the database
-            if (!featuredProducts.Any())
+            try
             {
-                return NotFound("No featured products were found");
+                var featuredProducts = _standardProductRepository.GetFeaturedProducts();
+
+                ///Return a 404 if no featured products are found in the database
+                if (!featuredProducts.Any())
+                {
+                    return NotFound("No featured products were found");
+                }
+                return Ok(_standardProductRepository.GetFeaturedProducts());
             }
-            return Ok(_standardProductRepository.GetFeaturedProducts());
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
 
         }
 

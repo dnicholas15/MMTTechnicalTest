@@ -21,6 +21,7 @@ namespace MMTTechnicalTest
         {
             services.AddControllers();
             services.AddCors();
+            services.AddLogging();
 
             services.AddScoped<ICategoryRepository, SqlStandardCategoryRepository>();
             services.AddScoped<IProductRepository, SqlStandardProductRepository>();

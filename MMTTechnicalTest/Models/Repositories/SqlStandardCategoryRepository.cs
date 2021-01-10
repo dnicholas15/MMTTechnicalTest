@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -11,14 +12,16 @@ namespace MMTTechnicalTest.Models.Repositories
     public class SqlStandardCategoryRepository : ICategoryRepository
     {
         private string _connectionString;
+        ILogger<SqlStandardCategoryRepository> _logger;
 
         /// <summary>
         /// inject the config through the constructor and use it to get the DB connection string
         /// </summary>
         /// <param name="configuration">The application config</param>
-        public SqlStandardCategoryRepository(IConfiguration configuration)
+        public SqlStandardCategoryRepository(IConfiguration configuration, ILogger<SqlStandardCategoryRepository> logger)
         {
             _connectionString = configuration.GetConnectionString("MMTConn");
+            _logger = logger;
         }
       
         /// <summary>
@@ -51,8 +54,9 @@ namespace MMTTechnicalTest.Models.Repositories
                 };
                 return categories;
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw new Exception("Unable to retrieve category names");
             }
         }
