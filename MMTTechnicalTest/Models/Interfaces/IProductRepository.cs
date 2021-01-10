@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MMTTechnicalTest.Models.DTOs;
+using System.Collections.Generic;
 
 namespace MMTTechnicalTest.Models.Repositories
 {
@@ -10,14 +11,14 @@ namespace MMTTechnicalTest.Models.Repositories
         /// <summary>
         /// Method for getting all featured products
         /// </summary>
-        /// <returns>A list of <see cref="StandardProduct"/></returns>
-        public IEnumerable<StandardProduct> GetFeaturedProducts();
+        /// <returns>A list of <see cref="StandardProductDto"/></returns>
+        public IEnumerable<StandardProductDto> GetFeaturedProducts();
 
         /// <summary>
         /// Method for getting all products by the selected category id
         /// </summary>
         /// <param name="Id">The selected category id</param>
-        /// <returns>A List of Standard Product </returns>
-        public IEnumerable<StandardProduct> GetProductsByCategory(int Id);
+        /// <returns>A List of <see cref="StandardProductDto"/> </returns>
+        public IEnumerable<StandardProductDto> GetProductsByCategory(int Id);
     }
 }

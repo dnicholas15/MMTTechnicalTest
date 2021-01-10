@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using MMTTechnicalTest.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -25,11 +26,11 @@ namespace MMTTechnicalTest.Models.Repositories
         /// The method for getting all featured products from the database
         /// </summary>
         /// <returns>A List of <see cref="StandardProduct"/></returns>
-        public IEnumerable<StandardProduct> GetFeaturedProducts()
+        public IEnumerable<StandardProductDto> GetFeaturedProducts()
         {
             try
             {
-                var products = new List<StandardProduct>();
+                var products = new List<StandardProductDto>();
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
                     con.Open();
@@ -40,14 +41,12 @@ namespace MMTTechnicalTest.Models.Repositories
                     {
                         while (reader.Read())
                         {
-                            products.Add(new StandardProduct()
+                            products.Add(new StandardProductDto()
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 Name = reader.GetString(reader.GetOrdinal("Name")),
                                 Description = reader.GetString(reader.GetOrdinal("Description")),
                                 Price = reader.GetDecimal(reader.GetOrdinal("Price")),
-                                StockKeepingUnit = reader.GetInt32(reader.GetOrdinal("StockKeepingUnit")),
-                                CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
                                 CategoryName = reader.GetString(reader.GetOrdinal("CategoryName"))
                             });                            
                         }
@@ -69,11 +68,11 @@ namespace MMTTechnicalTest.Models.Repositories
         /// </summary>
         /// <param name="categoryId">The selected category id</param>
         /// <returns>A list of <see cref="StandardProduct"/></returns>
-        public IEnumerable<StandardProduct>GetProductsByCategory(int categoryId)
+        public IEnumerable<StandardProductDto>GetProductsByCategory(int categoryId)
         {
                 try
                 {
-                    var products = new List<StandardProduct>();
+                    var products = new List<StandardProductDto>();
                     using (SqlConnection con = new SqlConnection(_connectionString))
                     {
                         con.Open();
@@ -86,14 +85,11 @@ namespace MMTTechnicalTest.Models.Repositories
                         {
                             while (reader.Read())
                             {
-                                products.Add(new StandardProduct()
+                                products.Add(new StandardProductDto()
                                 {
-                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                     Name = reader.GetString(reader.GetOrdinal("Name")),
                                     Description = reader.GetString(reader.GetOrdinal("Description")),
                                     Price = reader.GetDecimal(reader.GetOrdinal("Price")),
-                                    StockKeepingUnit = reader.GetInt32(reader.GetOrdinal("StockKeepingUnit")),
-                                    CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
                                     CategoryName = reader.GetString(reader.GetOrdinal("CategoryName"))
                                 });
                             }

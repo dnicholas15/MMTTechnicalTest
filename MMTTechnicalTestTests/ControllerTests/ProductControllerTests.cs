@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MMTTechnicalTest.Controllers;
-using MMTTechnicalTest.Models;
+using MMTTechnicalTest.Models.DTOs;
 using MMTTechnicalTest.Models.Repositories;
 using NSubstitute;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace MMTTechnicalTestTests
         public void GivenNoProductsExistInSelectedCategory_WhenGetAllCategoryNamesCalled_Then404ReponseCodeReturned()
         {
             ///Arrange
-            var products = new List<StandardProduct>();
+            var products = new List<StandardProductDto>();
             ProductRepository.GetProductsByCategory(1).Returns(products);
 
             ///Act
@@ -57,17 +57,14 @@ namespace MMTTechnicalTestTests
 
         public ProductController Sut;
 
-        public List<StandardProduct> CreateProductList()
+        public List<StandardProductDto> CreateProductList()
         {
-            var products = Substitute.For<List<StandardProduct>>();
-            products.Add(new StandardProduct()
+            var products = Substitute.For<List<StandardProductDto>>();
+            products.Add(new StandardProductDto()
             {
-                Id = 1,
                 Name = "Test product",
                 Description = "This is a test",
-                StockKeepingUnit = 13592,
-                Price = 100,
-                CategoryId = 1
+                Price = 100
             });
             return products;
         }

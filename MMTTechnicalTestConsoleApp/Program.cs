@@ -1,20 +1,16 @@
-﻿using MMTTechnicalTest.Models;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace MMTTechnicalTestConsoleApp
 {
     class Program
     {
-        private static string ApiUrl = "https://localhost:44352";
+        private static readonly string ApiUrl = "https://localhost:44352";
         static HttpClient client = new HttpClient();
         static async Task Main(string[] args)
         {
-           await Menu();
+            await Menu();
         }
 
         public static async Task Menu()
@@ -22,7 +18,8 @@ namespace MMTTechnicalTestConsoleApp
             Console.WriteLine("Welcome to the MMT Shop. Please select one of the following options and press enter:\r\n\r\n" +
                 "1) Show all featured products\r\n" +
                 "2) Show all available product category names\r\n" +
-                "3) Find products by category"
+                "3) Find products by category\r\n" +
+                "4) Exit application"
                 );
 
             int selection;
@@ -38,16 +35,17 @@ namespace MMTTechnicalTestConsoleApp
             switch (selection)
             {
                 case 1:
-                    Console.Clear();
                     await ShowFeaturedProducts();
                     break;
                 case 2:
-                    Console.Clear();
-                    ShowAllCategoryNames();
+                    await ShowAllCategoryNames();
                     break;
                 case 3:
-                    Console.Clear();
-                    FindProductsByCategory();
+                    await FindProductsByCategory();
+                    break;
+                case 4:
+                    Console.WriteLine("Thank you, goodbye!");
+                    Environment.Exit(0);
                     break;
                 default:
                     Console.WriteLine("\r\nSorry, I did not recognise that choice. Please choose one of the available options");
@@ -61,26 +59,56 @@ namespace MMTTechnicalTestConsoleApp
             try
             {
                 var response = await client.GetAsync(ApiUrl + "/Product/GetFeaturedProducts");
-                if(response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine(await response.Content.ReadAsStringAsync());
-                }
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+                Console.ReadLine();
             }
-            catch(HttpRequestException e)
+            catch (HttpRequestException e)
             {
                 Console.WriteLine("Message = {0}", e.Message);
             }
+            await Menu();
             ///Get request to Endpoint
         }
 
-        public static void ShowAllCategoryNames()
+        public static async Task ShowAllCategoryNames()
         {
-            ///Get request to Endpoint
+            try
+            {
+                var response = await client.GetAsync(ApiUrl + "/Category/GetAllCategoryNames");
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+                Console.ReadLine();
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine("Message = {0}", e.Message);
+            }
+            await Menu();
         }
 
-        public static void FindProductsByCategory()
+        public static async Task FindProductsByCategory()
         {
-            ///varible to store category names
+            Console.WriteLine("\r\n Please select a category between 1 and 5");
+            int chosenCategory;
+            var isANumber = int.TryParse(Console.ReadLine(), out chosenCategory);
+            if (isANumber)
+            {
+                try
+                {
+                    var response = await client.GetAsync(ApiUrl + "/Product/GetProductsByCategory/" + chosenCategory);
+                    Console.WriteLine("\r\n" + await response.Content.ReadAsStringAsync());
+                    Console.ReadLine();
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("Message = {0}", e.Message);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Sorry, I didn't recognise that. You must choose a number between 1 and 5 to continue\r\n");
+                await FindProductsByCategory();
+            }
+            await Menu();
         }
     }
 }
