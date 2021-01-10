@@ -20,7 +20,7 @@ namespace MMTTechnicalTest.Models.Repositories
         /// <param name="configuration">The application config</param>
         public SqlStandardProductRepository(IConfiguration configuration, ILogger<SqlStandardProductRepository> logger)
         {
-            _connectionString = configuration.GetConnectionString("MMTCon");
+            _connectionString = configuration.GetConnectionString("MMTConn");
             _logger = logger;
         }
 
