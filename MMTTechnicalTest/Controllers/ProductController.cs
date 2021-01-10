@@ -58,6 +58,10 @@ namespace MMTTechnicalTest.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetProductsByCategory(int categoryId)
         {
+            if(categoryId == 0)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "You must provide a categoryId");
+            }
             try
             {
                 var products = _standardProductRepository.GetProductsByCategory(categoryId);
