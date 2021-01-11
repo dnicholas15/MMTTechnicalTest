@@ -19,10 +19,7 @@ namespace MMTTechnicalTest.Models
         ///<inheritdoc/>
         public decimal Price { get; set; }
 
-        ///<inheritdoc/>
-        public int CategoryId { get; set; }
-
-        ///<inheritdoc/>
-        public string CategoryName { get; set; }
+        ///<inheritdoc/>      
+        public ICategory Category { get; set; }
     }
 }

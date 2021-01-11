@@ -49,7 +49,7 @@ namespace MMTTechnicalTest.Models.Repositories
                                 Name = reader.GetString(reader.GetOrdinal("Name")),
                                 Description = reader.GetString(reader.GetOrdinal("Description")),
                                 Price = reader.GetDecimal(reader.GetOrdinal("Price")),
-                                CategoryName = reader.GetString(reader.GetOrdinal("CategoryName"))
+                                CategoryName = reader.GetString(reader.GetOrdinal("CategoryName")),                               
                             });                            
                         }
                     }

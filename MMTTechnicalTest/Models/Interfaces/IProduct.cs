@@ -28,13 +28,8 @@
         public decimal Price { get; set; }
 
         /// <summary>
-        /// Gets and sets the categoryid of the product
+        /// Gets and sets the category for the product
         /// </summary>
-        public int CategoryId { get; set; }
-
-        /// <summary>
-        /// Gets and sets the categoryname of the product
-        /// </summary>
-        public string CategoryName { get; set; }
+        public ICategory Category { get;set;}
     }
 }
