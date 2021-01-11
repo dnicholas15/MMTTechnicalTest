@@ -30,6 +30,6 @@
         /// <summary>
         /// Gets and sets the category for the product
         /// </summary>
-        public ICategory Category { get;set;}
+        public ICategory Category { get; set; }
     }
 }
