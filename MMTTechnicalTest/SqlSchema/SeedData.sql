@@ -21,3 +21,5 @@ INSERT [dbo].[Products] ([Name], [Description], [Price],[StockKeepingUnit],[Cate
 INSERT [dbo].[Products] ([Name], [Description], [Price],[StockKeepingUnit],[CategoryId]) VALUES ('BarbieHouse','Mansion for your Barbie to live in',25.00,51541,5)
 
 INSERT [dbo].[FeaturedProductCodes] ([SkuPrefix]) VALUES (1)
+INSERT [dbo].[FeaturedProductCodes] ([SkuPrefix]) VALUES (2)
+INSERT [dbo].[FeaturedProductCodes] ([SkuPrefix]) VALUES (3)
