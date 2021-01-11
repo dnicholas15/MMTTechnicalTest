@@ -57,7 +57,7 @@ namespace MMTTechnicalTest.Models.Repositories
             catch(Exception ex)
             {
                 _logger.LogError(ex.Message);
-                throw new Exception("Unable to retrieve category names");
+                throw new Exception("Unable to retrieve categories");
             }
         }
     }
